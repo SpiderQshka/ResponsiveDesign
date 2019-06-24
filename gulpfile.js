@@ -1,4 +1,4 @@
-const {src, dest, watch, series, task, parallel} = require('gulp'),
+const {src, dist, watch, series, task, parallel} = require('gulp'),
 	  sass = require('gulp-sass'),
 	  sync = require("browser-sync"),
 	  imagemin = require('imagemin'),
@@ -13,19 +13,19 @@ var path = {
 		image: 'src/img/**/*.*',
 		fonts: 'src/fonts/*.*'
 	},
-	dest: {
-		html: 'dest/html/',
-		style: 'dest/styles/',
-		js: 'dest/js/',
-		image: 'dest/img/',
-		fonts: 'dest/fonts/'
+	dist: {
+		html: 'dist/html/',
+		style: 'dist/styles/',
+		js: 'dist/js/',
+		image: 'dist/img/',
+		fonts: 'dist/fonts/'
 	}
 };
 
 task('webserver', function(){
 	browserSync.init({
 	    server: {
-	        baseDir: "./dest",
+	        baseDir: "./dist",
 	       	index: './html/index.html'
 	    },
 	    tunnel: true,
@@ -34,56 +34,56 @@ task('webserver', function(){
 	});
 })
 
-task('destHTML', function(){
+task('distHTML', function(){
 	return src(path.src.html)
-		.pipe(dest(path.dest.html))
+		.pipe(dist(path.dist.html))
 		.pipe(browserSync.stream());
 });
 
-task('destStyles', function(){
+task('distStyles', function(){
 	return src(path.src.style)
 		.pipe(sass())
 		.pipe(prefixer())
-		.pipe(dest(path.dest.style))
+		.pipe(dist(path.dist.style))
 		.pipe(browserSync.stream());
 });
 
-task('destScripts', function(){
+task('distScripts', function(){
 	return src(path.src.js)
-		.pipe(dest(path.dest.js))
+		.pipe(dist(path.dist.js))
 		.pipe(browserSync.stream());
 });
 
-task('destImages', function(){
+task('distImages', function(){
 	return src(path.src.image)
-		.pipe(dest(path.dest.image))
+		.pipe(dist(path.dist.image))
 		.pipe(browserSync.stream());
 });
 
-task('destFonts', function(){
+task('distFonts', function(){
 	return src(path.src.fonts)
-		.pipe(dest(path.dest.fonts))
+		.pipe(dist(path.dist.fonts))
 		.pipe(browserSync.stream());
 });
 
 task('watchHTML', function(){
-	watch(path.src.html, series('destHTML'));
+	watch(path.src.html, series('distHTML'));
 });
 
 task('watchStyles', function(){
-	watch(path.src.style, series('destStyles'));
+	watch(path.src.style, series('distStyles'));
 });
 
 task('watchScripts', function(){
-	watch(path.src.js, series('destScripts'));
+	watch(path.src.js, series('distScripts'));
 });
 
 task('watchImages', function(){
-	watch(path.src.image, series('destImages'));
+	watch(path.src.image, series('distImages'));
 });
 
 task('watchFonts', function(){
-	watch(path.src.fonts, series('destFonts'));
+	watch(path.src.fonts, series('distFonts'));
 });
 
 task('watchAll', parallel('watchHTML', 'watchStyles', 'watchScripts', 'watchImages', 'watchFonts'));
