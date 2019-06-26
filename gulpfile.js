@@ -8,7 +8,7 @@ const {src, dest, watch, series, task, parallel} = require('gulp'),
 var path = {
 	src: {
 		html: 'src/html/**/*.html',
-		style: 'src/styles/**/*.scss',
+		style: 'src/styles/index.scss',
 		js: 'src/js/**/*.js',
 		image: 'src/img/**/*.*',
 		fonts: 'src/fonts/*.*'
@@ -19,6 +19,13 @@ var path = {
 		js: 'dest/js/',
 		image: 'dest/img/',
 		fonts: 'dest/fonts/'
+	},
+	watch: {
+		html: 'src/html/**/*.html',
+		style: 'src/styles/**/*.scss',
+		js: 'src/js/**/*.js',
+		image: 'src/img/**/*.*',
+		fonts: 'src/fonts/*.*'
 	}
 };
 
@@ -67,25 +74,27 @@ task('destFonts', function(){
 });
 
 task('watchHTML', function(){
-	watch(path.src.html, series('destHTML'));
+	watch(path.watch.html, series('destHTML'));
 });
 
 task('watchStyles', function(){
-	watch(path.src.style, series('destStyles'));
+	watch(path.watch.style, series('destStyles'));
 });
 
 task('watchScripts', function(){
-	watch(path.src.js, series('destScripts'));
+	watch(path.watch.js, series('destScripts'));
 });
 
 task('watchImages', function(){
-	watch(path.src.image, series('destImages'));
+	watch(path.watch.image, series('destImages'));
 });
 
 task('watchFonts', function(){
-	watch(path.src.fonts, series('destFonts'));
+	watch(path.watch.fonts, series('destFonts'));
 });
 
 task('watchAll', parallel('watchHTML', 'watchStyles', 'watchScripts', 'watchImages', 'watchFonts'));
+
+task('build', series('destHTML', 'destStyles', 'destScripts', 'destImages', 'destFonts'))
 
 task('default', parallel('webserver', 'watchAll'));
