@@ -31,8 +31,8 @@ var path = {
 
 task('webserver', function(){
 	browserSync.init({
-	    server: {
-	        baseDir: "./dest",
+		server: {
+		baseDir: "./dest",
 	       	index: './html/index.html'
 	    },
 	    tunnel: true,
