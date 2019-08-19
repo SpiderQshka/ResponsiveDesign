@@ -51,11 +51,18 @@
 
 	#skills-content{
 		flex-wrap: wrap;
+		#skills{
+			align-items: center !important;
+			text-align: center;
+		}
 	}
 	#about-us{
 		span{
 			padding: 0 20px;
 		}
+	}
+	#work-process-wrapper{
+		padding: 50px 0 !important;
 	}
 	#quote{
 		q{

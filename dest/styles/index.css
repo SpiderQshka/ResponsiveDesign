@@ -529,8 +529,13 @@ img, video {
       padding: 0 20px; }
   #skills-content {
     flex-wrap: wrap; }
+    #skills-content #skills {
+      align-items: center !important;
+      text-align: center; }
   #about-us span, #about-us #footer-wrapper #footer #socials a, #footer-wrapper #footer #socials #about-us a {
     padding: 0 20px; }
+  #work-process-wrapper {
+    padding: 50px 0 !important; }
   #quote q, #quote-wrapper #quote ul .quote .text span, #quote-wrapper #quote ul .quote .text #footer-wrapper #footer #socials a, #footer-wrapper #footer #socials #quote-wrapper #quote ul .quote .text a {
     padding: 0 20px; }
   #need-a-project span, #need-a-project #footer-wrapper #footer #socials a, #footer-wrapper #footer #socials #need-a-project a {
